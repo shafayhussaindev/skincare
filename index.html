@@ -1,0 +1,656 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aura Clinic · Consultant-led dermatology, Harley Street</title>
+<meta name="description" content="Consultant-led skin clinic on Harley Street. Clinical facials, peels, RF microneedling and laser resurfacing, planned around a full skin analysis.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.20/dist/lenis.min.js" defer></script>
+<style>
+  :root {
+    --alabaster: #F7F5F0; --sage: #E6ECE6; --blush: #F4E7E4;
+    --ink: #23211E; --muted: #67635B; --accent: #4E6651;
+    --line: rgba(35, 33, 30, .12);
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Plus Jakarta Sans", system-ui, sans-serif;
+    --r-lg: 24px; --r-md: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  body {
+    font: 400 16px/1.65 var(--sans); color: var(--ink);
+    background: linear-gradient(160deg, var(--alabaster) 0%, var(--sage) 50%, var(--blush) 100%) fixed;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; filter: saturate(.92) sepia(.06); } /* one warm-neutral grade for every photo */
+  button, input, select { font: inherit; color: inherit; }
+  button { cursor: pointer; border: 0; background: none; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  [data-lucide], .lucide { width: 18px; height: 18px; stroke-width: 1.5; flex-shrink: 0; }
+
+  /* layout */
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px; }
+  .s-3 { grid-column: span 3; } .s-4 { grid-column: span 4; } .s-5 { grid-column: span 5; }
+  .s-6 { grid-column: span 6; } .s-7 { grid-column: span 7; } .s-12 { grid-column: span 12; }
+  section { padding: 96px 0; }
+  section + section { border-top: 1px solid var(--line); }
+
+  /* glass */
+  .glass {
+    background: rgba(255, 255, 255, .55);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, .65);
+    border-radius: var(--r-lg);
+  }
+
+  /* type */
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; letter-spacing: -.01em; }
+  h1 { font-size: clamp(2.8rem, 6vw, 4.6rem); }
+  h2 { font-size: clamp(2.2rem, 4vw, 3.1rem); }
+  h3 { font-size: 1.6rem; }
+  h1 em, h2 em { font-style: italic; color: var(--accent); }
+  .eyebrow { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .lede { color: var(--muted); font-size: 1.05rem; max-width: 34em; }
+  .head { margin-bottom: 56px; }
+  .head .lede { margin-top: 16px; }
+  .small { font-size: .85rem; color: var(--muted); }
+
+  /* buttons */
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 26px; border-radius: 999px; font-size: .92rem; font-weight: 500; border: 1px solid var(--ink); transition: background .2s, color .2s; }
+  .btn-solid { background: var(--ink); color: #fff; }
+  .btn-solid:hover { background: #3a3732; }
+  .btn-line:hover { background: var(--ink); color: #fff; }
+  .btn-sm { padding: 8px 16px; font-size: .82rem; }
+  .btn:disabled { opacity: .4; cursor: default; }
+
+  /* header */
+  .site-head { position: sticky; top: 12px; z-index: 10; margin: 12px auto 0; max-width: 1200px; padding: 0 24px; }
+  .site-head .bar { display: flex; align-items: center; gap: 24px; padding: 10px 10px 10px 24px; border-radius: 999px; }
+  .logo { font-family: var(--serif); font-size: 1.5rem; letter-spacing: .12em; margin-right: auto; }
+  .site-head nav { display: flex; gap: 4px; }
+  .site-head nav a { padding: 8px 12px; font-size: .88rem; border-radius: 999px; color: var(--muted); }
+  .site-head nav a:hover { color: var(--ink); }
+  /* hero */
+  .hero { padding: 72px 0 96px; border: 0; }
+  .hero .grid { align-items: center; }
+  .hero h1 { margin-bottom: 24px; }
+  .hero .actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 36px 0 40px; }
+  .hero ul { list-style: none; display: flex; gap: 24px; flex-wrap: wrap; font-size: .85rem; color: var(--muted); }
+  .hero li { display: flex; align-items: center; gap: 8px; }
+  .hero-photo { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4 / 5; }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+
+  /* treatments */
+  .menu { padding: 32px; display: flex; flex-direction: column; height: 100%; }
+  .menu h3 { padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+  .menu ul { list-style: none; flex: 1; }
+  .menu li { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .menu li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .menu .row { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+  .menu h4 { font-weight: 600; font-size: .98rem; }
+  .menu .price { font-size: .85rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .menu .price b { color: var(--ink); font-weight: 600; }
+  .menu p { font-size: .88rem; color: var(--muted); margin: 6px 0 12px; }
+  .menu .book { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; font-weight: 500; color: var(--accent); }
+  .menu .book:hover { text-decoration: underline; }
+
+  /* results */
+  .ba { padding: 12px; }
+  .ba-stage { position: relative; aspect-ratio: 4 / 5; border-radius: var(--r-md); overflow: hidden; --pos: 50%; user-select: none; background: #ddd; }
+  .ba-stage img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .ba-stage .after { clip-path: inset(0 0 0 var(--pos)); }
+  .ba-stage .handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 1px; background: #fff; pointer-events: none; }
+  .ba-stage .knob { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: var(--ink); }
+  .ba-stage input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; }
+  .ba-stage .tag { position: absolute; bottom: 12px; padding: 4px 12px; border-radius: 999px; font-size: .72rem; font-weight: 500; background: rgba(255,255,255,.85); pointer-events: none; }
+  .ba-stage .tag.l { left: 12px; } .ba-stage .tag.r { right: 12px; }
+  .ba-tabs { display: flex; gap: 4px; padding: 12px 4px 4px; flex-wrap: wrap; }
+  .ba-tabs button { padding: 7px 14px; border-radius: 999px; font-size: .82rem; color: var(--muted); }
+  .ba-tabs button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .ba-note { padding: 4px 8px 4px; font-size: .78rem; color: var(--muted); }
+  .quotes { display: grid; gap: 24px; align-content: start; }
+  .quote { padding: 32px; }
+  .quote p { font-family: var(--serif); font-size: 1.35rem; line-height: 1.4; }
+  .quote cite { display: block; margin-top: 16px; font-style: normal; font-size: .82rem; color: var(--muted); }
+
+  /* process */
+  .steps { list-style: none; border-top: 1px solid var(--ink); }
+  .steps li { padding: 28px 24px 0 0; }
+  .steps li + li { border-left: 1px solid var(--line); padding-left: 24px; }
+  .steps .n { font-family: var(--serif); font-size: 1.1rem; color: var(--accent); }
+  .steps h3 { font-size: 1.45rem; margin: 12px 0 10px; }
+  .steps p { font-size: .9rem; color: var(--muted); }
+
+  /* clinicians */
+  .doc { padding: 12px 12px 24px; height: 100%; }
+  .doc img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-md); }
+  .doc h3 { font-size: 1.45rem; margin: 20px 12px 4px; }
+  .doc .role { margin: 0 12px; font-size: .78rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+  .doc p { margin: 12px 12px 0; font-size: .9rem; color: var(--muted); }
+
+  /* quiz */
+  .quiz { padding: 40px; min-height: 420px; display: flex; flex-direction: column; }
+  .quiz .progress { display: flex; gap: 6px; margin-bottom: 32px; }
+  .quiz .progress span { flex: 1; height: 2px; background: var(--line); }
+  .quiz .progress span.on { background: var(--ink); }
+  .quiz legend { font-family: var(--serif); font-size: 1.8rem; margin-bottom: 24px; }
+  .quiz fieldset { border: 0; flex: 1; }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opts label { display: block; cursor: pointer; }
+  .opts input { position: absolute; opacity: 0; }
+  .opts span { display: block; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--r-md); background: rgba(255,255,255,.5); font-size: .92rem; }
+  .opts span small { display: block; color: var(--muted); font-size: .8rem; margin-top: 2px; }
+  .opts input:checked + span { border-color: var(--ink); background: #fff; }
+  .opts input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .quiz .nav { display: flex; justify-content: space-between; margin-top: 32px; }
+  .routine { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 8px 0 28px; }
+  .routine h4 { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .routine ol { padding-left: 1.2em; font-size: .92rem; }
+  .routine li { padding: 4px 0; }
+  .routine li small { display: block; color: var(--muted); font-size: .8rem; }
+  .rx { padding: 20px 0; border-top: 1px solid var(--line); font-size: .92rem; }
+  .quiz .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: auto; }
+
+  /* booking */
+  .booking { padding: 32px; }
+  .booking .grid { gap: 32px; }
+  .cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .cal-head strong { font-family: var(--serif); font-weight: 500; font-size: 1.4rem; }
+  .icon-btn { width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; }
+  .icon-btn:hover:not(:disabled) { background: #fff; }
+  .icon-btn:disabled { opacity: .3; cursor: default; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; }
+  .cal-grid .dow { font-size: .72rem; color: var(--muted); padding: 6px 0; }
+  .cal-grid button { aspect-ratio: 1; border-radius: 12px; font-size: .88rem; font-variant-numeric: tabular-nums; }
+  .cal-grid button:hover:not(:disabled) { background: #fff; }
+  .cal-grid button:disabled { opacity: .3; cursor: default; }
+  .sel { background: var(--ink) !important; color: #fff; }
+  .field { margin-bottom: 18px; }
+  .field > label, .field > .label { display: block; font-size: .8rem; font-weight: 500; margin-bottom: 6px; }
+  .field select, .field input { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.75); }
+  .field [aria-invalid="true"] { border-color: #A4473F; }
+  .field .err { display: block; min-height: 1.2em; font-size: .78rem; color: #A4473F; margin-top: 4px; }
+  .slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .slots button { padding: 9px 0; border-radius: 12px; font-size: .85rem; border: 1px solid var(--line); background: rgba(255,255,255,.75); font-variant-numeric: tabular-nums; }
+  .slots button:disabled { opacity: .35; cursor: default; text-decoration: line-through; }
+  .slots .hint { grid-column: 1 / -1; font-size: .85rem; color: var(--muted); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .confirm { display: flex; gap: 12px; align-items: flex-start; padding: 16px 18px; border-radius: var(--r-md); background: #fff; font-size: .9rem; margin-top: 16px; }
+  .confirm[hidden] { display: none; }
+
+  /* faq */
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; padding: 22px 0; display: flex; justify-content: space-between; gap: 16px; font-weight: 500; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .lucide { transition: transform .2s; }
+  .faq details[open] summary .lucide { transform: rotate(45deg); }
+  .faq details p { padding: 0 48px 24px 0; color: var(--muted); }
+
+  /* footer */
+  footer { padding: 80px 0 32px; border-top: 1px solid var(--line); }
+  footer h4 { font-size: .75rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+  footer ul { list-style: none; font-size: .9rem; color: var(--muted); }
+  footer li { padding: 3px 0; display: flex; gap: 10px; align-items: center; }
+  footer a:hover { color: var(--ink); }
+  .map { padding: 6px; height: 200px; overflow: hidden; }
+  .map iframe { width: 100%; height: 100%; border: 0; border-radius: 18px; filter: grayscale(.7) sepia(.15); }
+  .foot-bottom { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); font-size: .8rem; color: var(--muted); }
+
+  /* reveal on scroll (class added by JS, so content stays visible without it) */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s cubic-bezier(.2, .7, .2, 1), transform .8s cubic-bezier(.2, .7, .2, 1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* responsive */
+  @media (max-width: 1000px) {
+    .site-head nav { display: none; }
+    .s-3, .s-4 { grid-column: span 6; }
+    .s-5, .s-6, .s-7 { grid-column: span 12; }
+    .steps li:nth-child(3) { border-left: 0; padding-left: 0; }
+    .steps li { padding-bottom: 28px; }
+    .hero-photo { aspect-ratio: 16 / 11; }
+  }
+  @media (max-width: 640px) {
+    .wrap, .site-head { padding: 0 16px; }
+    section { padding: 80px 0; }
+    .s-3, .s-4 { grid-column: span 12; }
+    .steps li + li { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); }
+    .menu, .quiz, .booking, .quote { padding: 24px; }
+    .opts, .routine, .two { grid-template-columns: 1fr; }
+    .site-head .bar { padding-left: 18px; gap: 8px; }
+    .site-head .btn { padding: 10px 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="bar glass">
+    <a href="#top" class="logo">AURA</a>
+    <nav aria-label="Main">
+      <a href="#treatments">Treatments</a>
+      <a href="#results">Results</a>
+      <a href="#process">Process</a>
+      <a href="#clinicians">Clinicians</a>
+      <a href="#quiz">Skin Quiz</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a href="#booking" class="btn btn-solid btn-sm">Book</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap grid">
+      <div class="s-6">
+        <p class="eyebrow">Harley Street, London</p>
+        <h1>Skin care, planned <em>like medicine.</em></h1>
+        <p class="lede">Every treatment at Aura starts with a full skin analysis and is delivered by a consultant dermatologist or a nurse they supervise. No packages pushed, no guesswork.</p>
+        <div class="actions">
+          <a href="#booking" class="btn btn-solid">Book a consultation</a>
+          <a href="#treatments" class="btn btn-line">View treatments</a>
+        </div>
+        <ul>
+          <li><i data-lucide="stethoscope"></i>Consultant-led</li>
+          <li><i data-lucide="scan-face"></i>Complimentary 30-min skin analysis</li>
+        </ul>
+      </div>
+      <div class="s-6">
+        <div class="hero-photo"><img src="assets/t-facial.jpg" alt="A clinician performing a facial treatment under natural light" fetchpriority="high"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TREATMENTS -->
+  <section id="treatments">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Treatment menu</p>
+        <h2>Treatments &amp; pricing</h2>
+        <p class="lede">Prices are per session. Courses are planned at your consultation, and we will tell you if a treatment isn’t right for your skin.</p>
+      </div>
+      <div class="grid" id="menu"></div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Results</p>
+        <h2>Real patients, unretouched</h2>
+        <p class="lede">Drag the divider to compare. Photographed in the same room, under the same light, before the first session and after the course.</p>
+      </div>
+      <div class="grid">
+        <div class="s-5">
+          <div class="ba glass">
+            <div class="ba-stage" id="baStage">
+              <img id="baBefore" src="assets/ba1-before.jpg" alt="Before treatment">
+              <img id="baAfter" class="after" src="assets/ba1-after.jpg" alt="After treatment">
+              <div class="handle"><span class="knob"><i data-lucide="chevrons-left-right"></i></span></div>
+              <span class="tag l">Before</span><span class="tag r">After</span>
+              <input type="range" min="0" max="100" value="50" aria-label="Compare before and after">
+            </div>
+            <div class="ba-tabs" role="group" aria-label="Choose a result">
+              <button type="button" aria-pressed="true" data-ba="ba1" data-note="RF Microneedling · 3 sessions, 6 weeks apart">Fine lines</button>
+              <button type="button" aria-pressed="false" data-ba="ba2" data-note="Radiofrequency Skin Tightening · 5 sessions">Firmness</button>
+              <button type="button" aria-pressed="false" data-ba="ba3" data-note="Acne Clarifying Facial · 6 sessions + home routine">Breakouts</button>
+            </div>
+            <p class="ba-note" id="baNote">RF Microneedling · 3 sessions, 6 weeks apart</p>
+          </div>
+        </div>
+        <div class="s-7 quotes">
+          <blockquote class="quote glass"><p>“Dr Marsh talked me out of laser and into three peels. She was right. My pigmentation has faded and I haven’t worn foundation since spring.”</p><cite>Layla A. · Bio-Revitalizing Chemical Peel</cite></blockquote>
+          <blockquote class="quote glass"><p>“Two days of redness after each microneedling session, which they warned me about. Three months on, the scarring on my cheeks is noticeably softer.”</p><cite>Priya S. · RF Microneedling</cite></blockquote>
+          <blockquote class="quote glass"><p>“I came in for a Hydrafacial and left with a routine that has fewer products than I started with. My skin is calmer than it’s been in years.”</p><cite>Hannah R. · Clinical Hydrafacial</cite></blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Our process</p>
+        <h2>Four steps, every time</h2>
+      </div>
+      <ol class="steps grid" style="gap:0">
+        <li class="s-3"><span class="n">01</span><h3>Skin Analysis</h3><p>Imaging of hydration, pigment, redness and pore density, plus your medical history and current routine.</p></li>
+        <li class="s-3"><span class="n">02</span><h3>Custom Protocol</h3><p>A written plan: which treatments, how many sessions, what it costs and what downtime to expect.</p></li>
+        <li class="s-3"><span class="n">03</span><h3>Targeted Treatment</h3><p>Delivered by your named clinician, with settings adjusted session by session as your skin responds.</p></li>
+        <li class="s-3"><span class="n">04</span><h3>Barrier Recovery</h3><p>Aftercare products, a home routine and a review appointment two weeks after each course.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CLINICIANS -->
+  <section id="clinicians">
+    <div class="wrap">
+      <div class="head grid" style="align-items:end">
+        <div class="s-6">
+          <p class="eyebrow">Clinicians</p>
+          <h2>The people treating you</h2>
+        </div>
+        <p class="lede s-6">Aura opened in 2014. Every clinician is registered with the GMC and trained in-house on each device we use. You see the same person from consultation to review.</p>
+      </div>
+      <div class="grid" id="team"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz">
+    <div class="wrap grid" style="align-items:start">
+      <div class="s-5 head">
+        <p class="eyebrow">Skin quiz</p>
+        <h2>Find your routine in three questions</h2>
+        <p class="lede">A starting point, not a diagnosis. Your clinician will refine it at your consultation.</p>
+      </div>
+      <form class="quiz glass s-7" id="quizForm" novalidate>
+        <div class="progress" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div id="quizBody"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section id="booking">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Book</p>
+        <h2>Request an appointment</h2>
+        <p class="lede">Open Monday to Saturday. We confirm every request by email within one working day.</p>
+      </div>
+      <form class="booking glass" id="bookForm" novalidate>
+        <div class="grid">
+          <div class="s-6">
+            <div class="cal-head">
+              <button type="button" class="icon-btn" id="calPrev" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+              <strong id="calTitle" aria-live="polite"></strong>
+              <button type="button" class="icon-btn" id="calNext" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+            </div>
+            <div class="cal-grid" id="calGrid" role="group" aria-label="Choose a date"></div>
+            <span class="err small" id="err-date" style="color:#A4473F"></span>
+          </div>
+          <div class="s-6">
+            <div class="field"><label for="treat">Treatment</label><select id="treat"></select><span class="err" id="err-treat"></span></div>
+            <div class="field"><label for="doc">Specialist</label><select id="doc"><option value="">First available</option></select></div>
+            <div class="field"><span class="label" id="slotLbl">Time</span><div class="slots" id="slots" role="group" aria-labelledby="slotLbl"></div><span class="err" id="err-slot"></span></div>
+            <div class="field"><label for="bName">Full name</label><input id="bName" autocomplete="name"><span class="err" id="err-name"></span></div>
+            <div class="two">
+              <div class="field"><label for="bEmail">Email</label><input id="bEmail" type="email" autocomplete="email"><span class="err" id="err-email"></span></div>
+              <div class="field"><label for="bPhone">Phone</label><input id="bPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="07700 900123"><span class="err" id="err-phone"></span></div>
+            </div>
+            <button class="btn btn-solid" type="submit" style="width:100%">Request appointment</button>
+            <div class="confirm" id="bookOk" role="status" hidden><i data-lucide="circle-check"></i><span></span></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap grid">
+      <div class="s-4 head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Before you book</h2>
+      </div>
+      <div class="s-7 faq" style="grid-column-end:-1">
+        <details open><summary>What happens at the first appointment?<i data-lucide="plus"></i></summary><p>A 30-minute consultation with skin imaging and a review of your medical history and current products. You leave with a written plan and costs. It’s free, and there is no obligation to book treatment.</p></details>
+        <details><summary>How much downtime should I plan for?<i data-lucide="plus"></i></summary><p>None for the Hydrafacial or LED. Expect one to two days of pinkness after a chemical peel or RF microneedling, and three to five days of redness after fractional laser. We schedule around events if you tell us the date.</p></details>
+        <details><summary>Can I be treated if I’m pregnant or breastfeeding?<i data-lucide="plus"></i></summary><p>We offer Hydrafacials and LED during pregnancy. Peels, microneedling and laser are postponed until after breastfeeding. Your clinician will confirm at consultation.</p></details>
+        <details><summary>Are your treatments safe for darker skin tones?<i data-lucide="plus"></i></summary><p>Yes. Our devices and peel strengths are chosen to be suitable across Fitzpatrick types I–VI, and we patch-test before any resurfacing treatment on deeper skin tones.</p></details>
+        <details><summary>What is your cancellation policy?<i data-lucide="plus"></i></summary><p>Rescheduling or cancelling is free with 48 hours’ notice. Later changes are charged at 50% of the treatment price, waived for illness.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="wrap grid">
+    <div class="s-3">
+      <a href="#top" class="logo">AURA</a>
+      <p class="small" style="margin-top:12px">Consultant-led dermatology and aesthetic skin treatments since 2014.</p>
+    </div>
+    <div class="s-3">
+      <h4>Visit</h4>
+      <ul>
+        <li><i data-lucide="map-pin"></i>12 Harley Street, London W1G 9PG</li>
+        <li><i data-lucide="clock"></i>Mon–Fri 9:00–19:00</li>
+        <li><i data-lucide="clock" style="visibility:hidden"></i>Sat 10:00–16:00</li>
+      </ul>
+    </div>
+    <div class="s-3">
+      <h4>Contact</h4>
+      <ul>
+        <li><i data-lucide="phone"></i><a href="tel:+442079460321">020 7946 0321</a></li>
+        <li><i data-lucide="mail"></i><a href="mailto:hello@auraclinic.co.uk">hello@auraclinic.co.uk</a></li>
+        <li><i data-lucide="calendar"></i><a href="#booking">Request an appointment</a></li>
+      </ul>
+    </div>
+    <div class="s-3 map glass">
+      <iframe title="Map of Aura Clinic on Harley Street" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=-0.1525%2C51.5155%2C-0.1425%2C51.5205&amp;layer=mapnik&amp;marker=51.518%2C-0.1475"></iframe>
+    </div>
+    <p class="s-12 foot-bottom">© 2026 Aura Clinic Ltd.</p>
+  </div>
+</footer>
+
+<script>
+  const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+  const icons = () => window.lucide?.createIcons({ attrs: { 'stroke-width': 1.5 } });
+  window.addEventListener('load', icons);
+  const gbp = n => '£' + n.toLocaleString('en-GB');
+
+  // ---------- Data ----------
+  const MENU = [
+    ['Facials & Light', [
+      ['hydra', 'Clinical Hydrafacial', 160, 60, 'Vortex cleansing, painless extraction and a hyaluronic infusion. Suitable for every skin type, with no downtime.'],
+      ['led', 'LED Light Therapy', 85, 30, 'Red light (633 nm) to calm inflammation and near-infrared (830 nm) to speed recovery. Often added after a peel.'],
+      ['acne', 'Acne Clarifying Facial', 120, 50, 'A salicylic cleanse, manual extraction and blue light (415 nm) to settle active breakouts.'],
+    ]],
+    ['Peels & Resurfacing', [
+      ['peel', 'Bio-Revitalizing Chemical Peel', 140, 45, 'A buffered lactic and mandelic acid blend that lifts dullness and refines texture with minimal flaking.'],
+      ['laser', 'Fractional Laser Resurfacing', 350, 60, 'Non-ablative 1550 nm laser for fine lines, sun damage and acne scarring. Expect three to five days of redness.'],
+    ]],
+    ['Collagen & Firming', [
+      ['rfmn', 'RF Microneedling', 280, 75, 'Insulated needles deliver radiofrequency into the dermis to remodel scarring and firm laxity. One to two days of downtime.'],
+      ['rf', 'Radiofrequency Skin Tightening', 220, 60, 'Controlled heating of the deeper skin layers to tighten the jawline and lower face. Usually a course of four to six sessions.'],
+    ]],
+  ];
+  const TREAT = Object.fromEntries(MENU.flatMap(([, items]) => items.map(t => [t[0], t[1]])));
+  const TEAM = [
+    ['dr1', 'Dr Elena Marsh', 'Medical Director · Consultant Dermatologist', 'Eighteen years in laser medicine and pigment disorders. Leads every resurfacing plan.'],
+    ['dr2', 'Dr Arjun Mehta', 'Consultant Dermatologist', 'Specialises in acne, acne scarring and RF microneedling for deeper skin tones.'],
+    ['dr3', 'Dr Naomi Clarke', 'Aesthetic Physician', 'Focuses on skin quality and firming, from radiofrequency tightening to chemical peels.'],
+  ];
+  // ---------- Render static lists ----------
+  $('#menu').innerHTML = MENU.map(([cat, items]) => `
+    <div class="s-4"><div class="menu glass"><h3>${cat}</h3><ul>${items.map(([id, name, price, mins, desc]) => `
+      <li><div class="row"><h4>${name}</h4><span class="price"><b>${gbp(price)}</b> · ${mins} min</span></div>
+      <p>${desc}</p><a href="#booking" class="book" data-treat="${id}">Book this <i data-lucide="arrow-right"></i></a></li>`).join('')}</ul></div></div>`).join('');
+
+  $('#team').innerHTML = TEAM.map(([img, name, role, bio]) => `
+    <article class="s-4"><div class="doc glass"><img src="assets/${img}.jpg" alt="Portrait of ${name}" loading="lazy">
+    <h3>${name}</h3><p class="role">${role}</p><p>${bio}</p></div></article>`).join('');
+
+  // ---------- Before / after ----------
+  const stage = $('#baStage');
+  stage.querySelector('input').addEventListener('input', e => stage.style.setProperty('--pos', e.target.value + '%'));
+  $$('[data-ba]').forEach(b => b.addEventListener('click', () => {
+    $$('[data-ba]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    $('#baBefore').src = `assets/${b.dataset.ba}-before.jpg`;
+    $('#baAfter').src = `assets/${b.dataset.ba}-after.jpg`;
+    $('#baNote').textContent = b.dataset.note;
+  }));
+
+  // ---------- Quiz ----------
+  const QUESTIONS = [
+    ['type', 'How does your skin feel by mid-afternoon?', [['dry', 'Tight or flaky', 'Needs moisturiser more than once a day'], ['oily', 'Shiny all over', 'Visible oil on forehead, nose and cheeks'], ['combo', 'Shiny T-zone, normal cheeks', 'Oil mostly through the centre'], ['sensitive', 'Easily irritated', 'Stings, flushes or reacts to new products']]],
+    ['concern', 'What would you most like to change?', [['lines', 'Fine lines & firmness', 'Softening lines, lifting laxity'], ['acne', 'Breakouts', 'Active spots or congestion'], ['tone', 'Uneven tone', 'Pigmentation, dullness, sun spots'], ['redness', 'Redness', 'Persistent flushing or visible blood vessels']]],
+    ['time', 'How much time do you want to spend on your routine?', [['min', 'Under two minutes', 'The essentials, morning and night'], ['full', 'Five minutes is fine', 'Happy to layer a few steps']]],
+  ];
+  const answers = {};
+  let step = 0;
+
+  function routineFor({ type, concern, time }) {
+    const reactive = type === 'sensitive' || concern === 'redness';
+    const cleanser = ['Gentle, low-foam cleanser', 'pH 5.5, fragrance-free'];
+    const am = [cleanser], pm = [cleanser];
+    if (time === 'full') {
+      if ((concern === 'tone' || concern === 'lines') && !reactive) am.push(['Vitamin C serum, 10–15%', 'Start every other morning for two weeks']);
+      else am.push(['Hyaluronic acid serum']);
+    }
+    am.push(['Broad-spectrum SPF 50', 'Every day, including cloudy ones']);
+    pm.push(['Hyaluronic acid serum']);
+    if (time === 'full' && !reactive) pm.push([
+      concern === 'acne' ? '2% salicylic acid serum' : concern === 'tone' ? 'Azelaic acid 10–15%' : 'Retinoid, pea-sized amount',
+      'Two to three nights a week to start']);
+    if (type === 'dry') pm.push(['A rich ceramide moisturiser', 'As the final step']);
+    const rx = { lines: 'rfmn', acne: 'acne', tone: reactive ? 'hydra' : 'peel', redness: 'led' }[concern];
+    return { am, pm, rx };
+  }
+
+  function renderQuiz() {
+    $$('.quiz .progress span').forEach((s, i) => s.classList.toggle('on', i <= step));
+    const body = $('#quizBody');
+    if (step < QUESTIONS.length) {
+      const [key, q, opts] = QUESTIONS[step];
+      body.innerHTML = `<fieldset><legend>${q}</legend><div class="opts">${opts.map(([v, l, d]) => `
+        <label><input type="radio" name="${key}" value="${v}" ${answers[key] === v ? 'checked' : ''}><span>${l}<small>${d}</small></span></label>`).join('')}</div></fieldset>
+        <div class="nav"><button type="button" class="btn btn-line btn-sm" id="qBack" ${step ? '' : 'disabled'}><i data-lucide="arrow-left"></i>Back</button>
+        <button type="submit" class="btn btn-solid btn-sm" ${answers[key] ? '' : 'disabled'} id="qNext">${step === QUESTIONS.length - 1 ? 'See my routine' : 'Next'}<i data-lucide="arrow-right"></i></button></div>`;
+      body.querySelectorAll('input').forEach(i => i.onchange = () => { answers[key] = i.value; $('#qNext').disabled = false; });
+      $('#qBack').onclick = () => { step--; renderQuiz(); };
+    } else {
+      const { am, pm, rx } = routineFor(answers);
+      const li = ([name, note]) => `<li>${name}${note ? `<small>${note}</small>` : ''}</li>`;
+      body.innerHTML = `<legend style="font-family:var(--serif);font-size:1.8rem;margin-bottom:24px">Your starting routine</legend>
+        <div class="routine"><div><h4>Morning</h4><ol>${am.map(li).join('')}</ol></div><div><h4>Evening</h4><ol>${pm.map(li).join('')}</ol></div></div>
+        <p class="rx">In clinic, we’d suggest starting with <b>${TREAT[rx]}</b>.${answers.type === 'sensitive' ? ' We patch-test first for reactive skin.' : ''}</p>
+        <div class="actions"><a href="#booking" class="btn btn-solid btn-sm" data-treat="${rx}">Book ${TREAT[rx]}</a>
+        <button type="button" class="btn btn-sm" style="border-color:transparent" id="qRestart"><i data-lucide="rotate-ccw"></i>Start again</button></div>`;
+      $('#qRestart').onclick = () => { step = 0; for (const k in answers) delete answers[k]; renderQuiz(); };
+    }
+    icons();
+  }
+  $('#quizForm').addEventListener('submit', e => { e.preventDefault(); if (answers[QUESTIONS[step][0]]) { step++; renderQuiz(); } });
+  renderQuiz();
+
+  // ---------- Booking ----------
+  // ponytail: front-end only; send the request to the clinic's booking system/email before launch.
+  const HOURS = { weekday: ['09:00', '10:30', '12:00', '13:30', '15:00', '16:30', '17:30'], sat: ['10:00', '11:30', '13:00', '14:30'] };
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const lastDay = new Date(today); lastDay.setDate(lastDay.getDate() + 90); // bookable 90 days out
+  const view = new Date(today.getFullYear(), today.getMonth(), 1);
+  let pickedDate = null, pickedSlot = null;
+
+  $('#treat').innerHTML = '<option value="">Choose a treatment</option><option value="consult">Skin Consultation (complimentary, 30 min)</option>'
+    + MENU.map(([cat, items]) => `<optgroup label="${cat}">${items.map(([id, name, price, mins]) => `<option value="${id}">${name} · ${gbp(price)}, ${mins} min</option>`).join('')}</optgroup>`).join('');
+  TREAT.consult = 'Skin Consultation';
+  $('#doc').innerHTML += TEAM.map(([, name]) => `<option>${name}</option>`).join('');
+
+  function renderCal() {
+    $('#calTitle').textContent = view.toLocaleString('en-GB', { month: 'long', year: 'numeric' });
+    const grid = $('#calGrid');
+    grid.innerHTML = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map(d => `<span class="dow" aria-hidden="true">${d}</span>`).join('') + '<span></span>'.repeat(view.getDay());
+    const days = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
+    for (let d = 1; d <= days; d++) {
+      const date = new Date(view.getFullYear(), view.getMonth(), d), b = document.createElement('button');
+      b.type = 'button'; b.textContent = d;
+      b.setAttribute('aria-label', date.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }));
+      b.disabled = date < today || date > lastDay || date.getDay() === 0; // closed Sundays
+      if (pickedDate && +date === +pickedDate) { b.classList.add('sel'); b.setAttribute('aria-pressed', 'true'); }
+      b.onclick = () => { pickedDate = date; pickedSlot = null; $('#err-date').textContent = ''; renderCal(); renderSlots(); };
+      grid.append(b);
+    }
+    $('#calPrev').disabled = view <= new Date(today.getFullYear(), today.getMonth(), 1);
+    $('#calNext').disabled = new Date(view.getFullYear(), view.getMonth() + 1, 1) > lastDay;
+  }
+  function renderSlots() {
+    const el = $('#slots');
+    if (!pickedDate) { el.innerHTML = '<span class="hint">Pick a date to see available times.</span>'; return; }
+    const now = new Date();
+    el.innerHTML = '';
+    (pickedDate.getDay() === 6 ? HOURS.sat : HOURS.weekday).forEach(t => {
+      const b = document.createElement('button'), [h, m] = t.split(':');
+      b.type = 'button'; b.textContent = t;
+      b.disabled = +pickedDate === +today && new Date(today).setHours(h, m) < now.getTime() + 2 * 3600e3; // 2h notice
+      b.classList.toggle('sel', t === pickedSlot);
+      b.onclick = () => { pickedSlot = t; $('#err-slot').textContent = ''; renderSlots(); };
+      el.append(b);
+    });
+  }
+  $('#calPrev').onclick = () => { view.setMonth(view.getMonth() - 1); renderCal(); };
+  $('#calNext').onclick = () => { view.setMonth(view.getMonth() + 1); renderCal(); };
+  renderCal(); renderSlots();
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-treat]');
+    if (t) { $('#treat').value = t.dataset.treat; $('#err-treat').textContent = ''; }
+  });
+
+  $('#bookForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#bName'), email = $('#bEmail'), phone = $('#bPhone'), treat = $('#treat');
+    const digits = phone.value.replace(/[\s()+-]/g, '');
+    const errors = {
+      date: !pickedDate && 'Choose a date.',
+      slot: pickedDate && !pickedSlot && 'Choose a time.',
+      treat: !treat.value && 'Choose a treatment.',
+      name: name.value.trim().length < 2 && 'Enter your full name.',
+      email: !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim()) && 'Enter a valid email address.',
+      phone: !/^\d{10,15}$/.test(digits) && 'Enter a valid phone number, including area code.',
+    };
+    const inputs = { treat, name, email, phone };
+    for (const [k, msg] of Object.entries(errors)) {
+      $('#err-' + k).textContent = msg || '';
+      inputs[k]?.setAttribute('aria-invalid', !!msg);
+    }
+    const ok = $('#bookOk');
+    if (Object.values(errors).some(Boolean)) { ok.hidden = true; (inputs[Object.keys(errors).find(k => errors[k])] || $('#calGrid button:not(:disabled)'))?.focus(); return; }
+    const doc = $('#doc').value || 'the first available specialist';
+    ok.querySelector('span').textContent = `Thank you, ${name.value.trim().split(' ')[0]}. We’ve received your request for ${TREAT[treat.value]} with ${doc} on ${pickedDate.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })} at ${pickedSlot}. We’ll confirm by email to ${email.value.trim()} within one working day, and call ${phone.value.trim()} only if we need to change anything.`;
+    ok.hidden = false; icons();
+    e.target.reset(); pickedDate = pickedSlot = null; renderCal(); renderSlots();
+  });
+
+  // ---------- Lenis smooth scroll (native CSS smooth scroll stays as the fallback) ----------
+  addEventListener('DOMContentLoaded', () => {
+    if (!window.Lenis || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const lenis = new Lenis({ lerp: 0.1 });
+    const raf = t => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+    document.addEventListener('click', e => {
+      const a = e.target.closest('a[href^="#"]'), target = a && document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target, { offset: -84 });
+      history.pushState(null, '', a.getAttribute('href'));
+    });
+  });
+
+  // ---------- Reveal on scroll ----------
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(entries => entries.forEach(en => {
+      if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+    }), { rootMargin: '0px 0px -8% 0px' });
+    $$('.hero .s-6, section .head, #menu > *, .ba, .quote, .steps li, #team > *, .quiz, .booking, .faq details, footer .grid > *').forEach(el => {
+      const i = [...el.parentElement.children].indexOf(el);
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i % 4) * 90 + 'ms'; // stagger siblings
+      io.observe(el);
+    });
+  }
+</script>
+</body>
+</html>
